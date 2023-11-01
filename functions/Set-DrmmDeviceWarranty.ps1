@@ -32,6 +32,7 @@ function Set-DrmmDeviceWarranty {
 	$Warranty = @{}
 
 	# Add Warranty if provided
+ 	If ($PSBoundParameters.warrantyDate -eq $null){ $Warranty.Add('warrantyDate', 'null' }
 	If ($PSBoundParameters.ContainsKey('warrantyDate')) { $Warranty.Add('warrantyDate', $warrantyDate) }
 
 	# Convert to JSON
