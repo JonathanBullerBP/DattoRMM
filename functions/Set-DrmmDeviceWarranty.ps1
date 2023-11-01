@@ -23,16 +23,21 @@ function Set-DrmmDeviceWarranty {
 		[Parameter(Mandatory = $True)] 
 		$deviceUid,
 
-		[Parameter(Mandatory = $True)] 
-		$warrantyDate
+		[String] 
+		$warrantyDate,
+		
+		[Switch] 
+		$clearWarranty
 	)
 
 	# Declare Variables
 	$apiMethod = 'POST'
 	$Warranty = @{}
 
-	# Add Warranty if provided
- 	If ($PSBoundParameters.warrantyDate -eq $null){ $Warranty.Add('warrantyDate', 'null' }
+	# If clearWarranty flag is true, clear the warranty
+	If ($PSBoundParameters.clearWarranty -eq $true){ $Warranty.Add('warrantyDate', $null) }
+
+ 	# Add Warranty if provided
 	If ($PSBoundParameters.ContainsKey('warrantyDate')) { $Warranty.Add('warrantyDate', $warrantyDate) }
 
 	# Convert to JSON
